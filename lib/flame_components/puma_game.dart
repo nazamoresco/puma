@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
+import 'package:flame/events.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
@@ -28,7 +29,7 @@ import 'package:game/flame_components/tile_component.dart';
 import 'package:game/flame_components/top_left_menu_component.dart';
 import 'package:game/flame_components/top_right_menu_component.dart';
 
-class PumaGame extends FlameGame {
+class PumaGame extends FlameGame with ScrollDetector, ScaleDetector {
   /// Slowly increments the exposure to new features to the player
   /// We want to keep it between restarts, because the player was already exposed.
   late PlayerIncrementalFeatureExposure featureExposure;
@@ -165,7 +166,7 @@ class PumaGame extends FlameGame {
     required this.safeAreaPadding,
     required this.levelConfiguration,
     required this.areAssetsCached,
-    required this.onAssetsCached
+    required this.onAssetsCached,
   }) {
     featureExposure = levelConfiguration.featureExposure;
     camera = CameraComponent(world: world)..viewfinder.anchor = Anchor.center;
@@ -470,6 +471,38 @@ class PumaGame extends FlameGame {
       restartGame();
     } else {
       return;
+    }
+  }
+
+  void clampZoom() {
+    camera.viewfinder.zoom = camera.viewfinder.zoom.clamp(0.05, 3.0);
+  }
+
+  static const zoomPerScrollUnit = 0.02;
+
+  @override
+  void onScaleStart(_) {
+    startZoom = camera.viewfinder.zoom;
+  }
+
+  @override
+  void onScroll(PointerScrollInfo info) {
+    camera.viewfinder.zoom +=
+        info.scrollDelta.global.y.sign * zoomPerScrollUnit;
+    clampZoom();
+  }
+
+  late double startZoom;
+
+  @override
+  void onScaleUpdate(ScaleUpdateInfo info) {
+    final currentScale = info.scale.global;
+    if (!currentScale.isIdentity()) {
+      camera.viewfinder.zoom = startZoom * currentScale.y;
+      clampZoom();
+    } else {
+      final delta = info.delta.global;
+      camera.viewfinder.position.translate(-delta.x, -delta.y);
     }
   }
 }
