@@ -2,6 +2,7 @@ import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:game/classes/seed.dart';
 import 'package:game/classes/seed_bag.dart';
+import 'package:game/functions/is_phone.dart';
 
 class IngredientSlot extends StatelessWidget {
   final int index;
@@ -22,6 +23,9 @@ class IngredientSlot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final isPhoneVar = isPhone(screenSize);
+
     return DragTarget<SeedBag>(
       onWillAcceptWithDetails: ((details) => true),
       onAcceptWithDetails: (details) => placeIngredient(index, details.data),
@@ -36,7 +40,8 @@ class IngredientSlot extends StatelessWidget {
         return GestureDetector(
           onTapDown: (_) => onTap(index),
           child: Container(
-            constraints: BoxConstraints.tight(const Size(100, 100)),
+            constraints: BoxConstraints.tight(isPhoneVar ? 
+            const Size(50, 50) : const Size(100, 100)),
             decoration: BoxDecoration(
               color: Colors.transparent,
               image: DecorationImage(

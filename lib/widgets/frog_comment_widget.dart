@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:game/flame_components/puma_game.dart';
+import 'package:game/functions/is_phone.dart';
 
 class FrogCommentWidget extends StatefulWidget {
   final PumaGame game;
@@ -20,7 +21,7 @@ class _FrogCommentWidgetState extends State<FrogCommentWidget> {
     // Fetch a new comment every 5 seconds
     _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
       setState(() {
-      // Fetch a new comment here
+        // Fetch a new comment here
       });
     });
     super.initState();
@@ -34,16 +35,19 @@ class _FrogCommentWidgetState extends State<FrogCommentWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final isPhoneVar = isPhone(screenSize);
+
     return SizedBox(
       width: 250,
       child: Text(
         widget.game.frog.comment,
         textAlign: TextAlign.end,
-        style: const TextStyle(
+        style: TextStyle(
           decoration: TextDecoration.none,
           fontFamily: "Crayonara",
           color: Colors.brown,
-          fontSize: 20,
+          fontSize: isPhoneVar ? 16 : 20,
         ),
       ),
     );

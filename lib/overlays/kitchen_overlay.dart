@@ -5,6 +5,7 @@ import 'package:game/classes/recipe.dart';
 import 'package:game/classes/seed.dart';
 import 'package:game/classes/seed_bag.dart';
 import 'package:game/flame_components/puma_game.dart';
+import 'package:game/functions/is_phone.dart';
 import 'package:game/widgets/animated_coin_counter.dart';
 import 'package:game/widgets/animated_recipe.dart';
 import 'package:game/widgets/frog_widget.dart';
@@ -103,6 +104,8 @@ class _KitchenOverlayState extends State<KitchenOverlay> {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final isPhoneVar = isPhone(screenSize);
     return TapRegion(
       onTapOutside: (event) {
         for (var index in ingredients.keys) {
@@ -113,16 +116,20 @@ class _KitchenOverlayState extends State<KitchenOverlay> {
         widget.game.overlays.remove("kitchen");
       },
       child: Padding(
-        padding: const EdgeInsets.all(32.0),
+        padding: isPhoneVar
+            ? const EdgeInsets.all(16.0)
+            : const EdgeInsets.all(32.0),
         child: Center(
           child: Stack(
             children: [
               Container(
-                width: MediaQuery.of(context).size.width * .8,
-                constraints: const BoxConstraints(
+                width: isPhoneVar
+                    ? MediaQuery.of(context).size.width * .9
+                    : MediaQuery.of(context).size.width * .8,
+                constraints: BoxConstraints(
                   minWidth: 850,
                   minHeight: 350,
-                  maxWidth: 900,
+                  maxWidth: isPhoneVar ? 1500 : 900,
                 ),
                 child: RawImage(
                   image: Flame.images.fromCache("COCINA_fondo.webp"),
@@ -130,13 +137,18 @@ class _KitchenOverlayState extends State<KitchenOverlay> {
                 ),
               ),
               Container(
-                width: MediaQuery.of(context).size.width * .8,
-                constraints: const BoxConstraints(
+                width: isPhoneVar
+                    ? MediaQuery.of(context).size.width * .9
+                    : MediaQuery.of(context).size.width * .8,
+                constraints: BoxConstraints(
                   minWidth: 850,
                   minHeight: 350,
-                  maxWidth: 900,
+                  maxWidth: isPhoneVar ? 1500 : 900,
                 ),
-                padding: const EdgeInsets.all(32.0),
+                padding: isPhoneVar
+                    ? const EdgeInsets.symmetric(
+                        vertical: 16.0, horizontal: 24.0)
+                    : const EdgeInsets.all(32.0),
                 child: Row(
                   children: [
                     Flexible(
@@ -156,8 +168,8 @@ class _KitchenOverlayState extends State<KitchenOverlay> {
                             ],
                           ),
                           Container(
-                            constraints: const BoxConstraints(
-                              minHeight: 100,
+                            constraints: BoxConstraints(
+                              minHeight: isPhoneVar ? 50 : 100,
                             ),
                             child: Row(
                               children: [
@@ -168,7 +180,9 @@ class _KitchenOverlayState extends State<KitchenOverlay> {
                                   placeIngredient: placeIngredient,
                                   onTap: handleIngredientSlotTap,
                                 ),
-                                const SizedBox(width: 16),
+                                isPhoneVar
+                                    ? const SizedBox(width: 8)
+                                    : const SizedBox(width: 16),
                                 IngredientSlot(
                                   1,
                                   seed: ingredients[1],
@@ -176,7 +190,9 @@ class _KitchenOverlayState extends State<KitchenOverlay> {
                                   placeIngredient: placeIngredient,
                                   onTap: handleIngredientSlotTap,
                                 ),
-                                const SizedBox(width: 16),
+                                isPhoneVar
+                                    ? const SizedBox(width: 8)
+                                    : const SizedBox(width: 16),
                                 IngredientSlot(
                                   2,
                                   seed: ingredients[2],
@@ -184,10 +200,12 @@ class _KitchenOverlayState extends State<KitchenOverlay> {
                                   placeIngredient: placeIngredient,
                                   onTap: handleIngredientSlotTap,
                                 ),
-                                const SizedBox(width: 8),
+                                isPhoneVar
+                                    ? const SizedBox(width: 4)
+                                    : const SizedBox(width: 8),
                                 Container(
-                                  width: 32,
-                                  height: 32,
+                                  width: isPhoneVar ? 16 : 32,
+                                  height: isPhoneVar ? 16 : 32,
                                   decoration: const BoxDecoration(
                                     image: DecorationImage(
                                       image: AssetImage(
@@ -197,15 +215,18 @@ class _KitchenOverlayState extends State<KitchenOverlay> {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 8),
+                                isPhoneVar
+                                    ? const SizedBox(width: 4)
+                                    : const SizedBox(width: 8),
                                 Container(
                                   width:
                                       MediaQuery.of(context).size.height * .25,
                                   height:
                                       MediaQuery.of(context).size.height * .25,
-                                  constraints: const BoxConstraints(
-                                    maxWidth: 100,
-                                    maxHeight: 100,
+                                  constraints: BoxConstraints.tight(
+                                    isPhoneVar
+                                        ? const Size(50, 50)
+                                        : const Size(100, 100),
                                   ),
                                   decoration: const BoxDecoration(
                                     image: DecorationImage(
@@ -231,14 +252,14 @@ class _KitchenOverlayState extends State<KitchenOverlay> {
                               ],
                             ),
                           ),
-                          const Text(
+                          Text(
                             "Ingredientes",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               decoration: TextDecoration.underline,
                               fontFamily: "Crayonara",
                               color: Colors.brown,
-                              fontSize: 24,
+                              fontSize: isPhoneVar ? 16 : 24,
                             ),
                           ),
                           (widget.game.dispenser?.harvests ?? []).isNotEmpty
@@ -272,8 +293,8 @@ class _KitchenOverlayState extends State<KitchenOverlay> {
                                               );
                                             },
                                             child: SizedBox(
-                                              height: 100,
-                                              width: 100,
+                                              height: isPhoneVar ? 50 : 100,
+                                              width: isPhoneVar ? 50 : 100,
                                               child: Stack(
                                                 alignment:
                                                     Alignment.bottomRight,
@@ -317,14 +338,14 @@ class _KitchenOverlayState extends State<KitchenOverlay> {
                                       ),
                                   ),
                                 )
-                              : const Text(
+                              : Text(
                                   "No hay mas ingredientes! Planta y cosecha mas cultivos para continuar.",
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     decoration: TextDecoration.none,
                                     fontFamily: "Crayonara",
                                     color: Colors.brown,
-                                    fontSize: 20,
+                                    fontSize: isPhoneVar ? 16 : 20,
                                   ),
                                 )
                         ],
@@ -335,29 +356,33 @@ class _KitchenOverlayState extends State<KitchenOverlay> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: IconButton(
-                              onPressed: () {
-                                widget.game.isPaused = false;
-                                widget.game.overlays.remove("kitchen");
-                              },
-                              icon: const Icon(
-                                Icons.close,
-                                color: Colors.brown,
-                                size: 32,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  "Platos a desbloquear",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    fontFamily: "Crayonara",
+                                    color: Colors.brown,
+                                    fontSize: isPhoneVar ? 16 : 24,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          const Text(
-                            "Platos a desbloquear",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              fontFamily: "Crayonara",
-                              color: Colors.brown,
-                              fontSize: 24,
-                            ),
+                              IconButton(
+                                onPressed: () {
+                                  widget.game.isPaused = false;
+                                  widget.game.overlays.remove("kitchen");
+                                },
+                                icon: Icon(
+                                  Icons.close,
+                                  color: Colors.brown,
+                                  size: isPhoneVar ? 16 : 32,
+                                ),
+                              ),
+                            ],
                           ),
                           Expanded(
                             child: ListView(
@@ -366,8 +391,8 @@ class _KitchenOverlayState extends State<KitchenOverlay> {
                                   widget.game.cookbook?.unlockableRecipes.map(
                                         (recipe) {
                                           return SizedBox(
-                                            width: 100,
-                                            height: 100,
+                                            width: isPhoneVar ? 50 : 100,
+                                            height: isPhoneVar ? 50 : 100,
                                             child: RecipeWidget(
                                               recipe,
                                               isUnlocked: widget.game.cookbook
