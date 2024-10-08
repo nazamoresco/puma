@@ -69,12 +69,12 @@ class DietManager {
       }
 
       unusualRecipe ??= recipe;
-      final currentMealsCount = meals.contains(unusualRecipe)
+      final currentMealsCount = meals.map((meal) => meal.recipe).contains(unusualRecipe)
           ? meals
               .singleWhere((element) => element.recipe == unusualRecipe)
               .count
           : 0;
-      final recipeMealsCount = meals.contains(recipe)
+      final recipeMealsCount = meals.map((meal) => meal.recipe).contains(recipe)
           ? meals.singleWhere((element) => element.recipe == recipe).count
           : 0;
 

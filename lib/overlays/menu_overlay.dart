@@ -148,13 +148,13 @@ class MenuOverlay extends StatelessWidget {
                               game.nextLevel();
                             }
                           },
-                          child: Text("Siguiente Nivel"),
+                          child: const Text("Siguiente Nivel"),
                         ),
                         TextButton(
                           onPressed: () {
                             onGameEnd();
                           },
-                          child: Text("Ir a cuestionario"),
+                          child: const Text("Ir a cuestionario"),
                         )
                       ],
                     ),

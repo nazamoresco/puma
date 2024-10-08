@@ -10,7 +10,8 @@ class Frog {
     Recipe.gazpacho: 10,
   };
 
-  late Timer _timer;
+  // ignore: unused_field
+  Timer? _timer;
 
   void yap() {
     talk(null);

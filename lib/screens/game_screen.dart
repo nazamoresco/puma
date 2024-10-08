@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:collection/collection.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:game/classes/level_configuration.dart';

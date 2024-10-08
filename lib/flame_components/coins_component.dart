@@ -37,7 +37,6 @@ class CoinsComponent extends RowComponent with HasGameRef<PumaGame> {
 
     add(coinsIcon);
 
-    // TODO: implement onLoad
     return super.onLoad();
   }
 

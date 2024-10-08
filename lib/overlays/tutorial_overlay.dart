@@ -1,6 +1,5 @@
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:game/flame_components/puma_game.dart';
 
 class TutorialOverlay extends StatelessWidget {
@@ -203,7 +202,7 @@ class StepSwitch extends StatelessWidget {
                   fontSize: 24,
                 ),
               ),
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height * .5,
                 child: RawImage(
                   image: Flame.images.fromCache("tutorial_3.png"),

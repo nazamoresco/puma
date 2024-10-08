@@ -133,7 +133,6 @@ class ParcelComponent extends SpriteComponent
         ));
         break;
       case TapResults.deadParcel:
-        // TODO: Handle this case.
         break;
       default:
         break;

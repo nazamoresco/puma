@@ -305,7 +305,6 @@ class PumaGame extends FlameGame {
     )..start();
 
     frog = Frog()..yap();
-    ;
   }
 
   /// Takes care of all the needs for restarting the game
