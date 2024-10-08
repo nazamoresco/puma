@@ -90,8 +90,8 @@ class _SeedShopOverlayState extends State<SeedShopOverlay> {
                           children: widget.game.purchasableSeeds.map(
                             (seed) {
                               return SizedBox(
-                                height: isPhoneVar ? 200 : 200,
-                                width: isPhoneVar ? 300 : 100,
+                                height: isPhoneVar ? 100 : 200,
+                                width: isPhoneVar ? 100 : 100,
                                 child: GestureDetector(
                                   onTapDown: (_) {
                                     if (widget.game.coins <= 0) {
@@ -108,8 +108,8 @@ class _SeedShopOverlayState extends State<SeedShopOverlay> {
                                   child: Column(
                                     children: [
                                       SizedBox(
-                                        height: isPhoneVar ? 100 : 100,
-                                        width: isPhoneVar ? 100 : 100,
+                                        height: isPhoneVar ? 50 : 100,
+                                        width: isPhoneVar ? 50 : 100,
                                         child: RawImage(
                                           image:
                                               Flame.images.fromCache(seed.icon),

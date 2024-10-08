@@ -2,6 +2,7 @@ import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:game/classes/level_configuration.dart';
 import 'package:game/flame_components/puma_game.dart';
+import 'package:game/functions/is_phone.dart';
 import 'package:game/widgets/music_controls.dart';
 
 class MenuOverlay extends StatelessWidget {
@@ -12,17 +13,22 @@ class MenuOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final isPhoneVar = isPhone(size);
+
     return Center(
       child: Stack(
         children: [
           Container(
             width: MediaQuery.of(context).size.width * .5,
-            height: MediaQuery.of(context).size.height * .8,
-            constraints: const BoxConstraints(
+            height: isPhoneVar
+                ? MediaQuery.of(context).size.height * .9
+                : MediaQuery.of(context).size.height * .8,
+            constraints: BoxConstraints(
               minWidth: 850,
               minHeight: 100,
               maxWidth: 900,
-              maxHeight: 600,
+              maxHeight: isPhoneVar ? 1000 : 600,
             ),
             child: RawImage(
               image: Flame.images.fromCache("COCINA_fondo.webp"),
@@ -31,156 +37,160 @@ class MenuOverlay extends StatelessWidget {
           ),
           Container(
             width: MediaQuery.of(context).size.width * .5,
-            height: MediaQuery.of(context).size.height * .8,
-            constraints: const BoxConstraints(
+            height: isPhoneVar
+                ? MediaQuery.of(context).size.height * .9
+                : MediaQuery.of(context).size.height * .8,
+            constraints: BoxConstraints(
               minWidth: 850,
               minHeight: 100,
               maxWidth: 900,
-              maxHeight: 600,
+              maxHeight: isPhoneVar ? 1000 : 600,
             ),
             padding: const EdgeInsets.all(32.0),
             child: Stack(
               alignment: Alignment.center,
               children: [
-                Column(
-                  children: [
-                    const Text(
-                      "Menu",
-                      style: TextStyle(
-                        decoration: TextDecoration.none,
-                        color: Colors.black,
-                        fontFamily: "Crayonara",
-                        fontWeight: FontWeight.normal,
-                        fontSize: 32,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromARGB(255, 246, 104, 52),
-                        padding: const EdgeInsets.all(16),
-                      ),
-                      onPressed: () {
-                        game.overlays.add("tutorial");
-                      },
-                      child: const Text(
-                        "Tutorial / Ayuda",
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Menu",
                         style: TextStyle(
                           decoration: TextDecoration.none,
                           color: Colors.black,
                           fontFamily: "Crayonara",
                           fontWeight: FontWeight.normal,
+                          fontSize: 32,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 246, 104, 52),
+                          padding: const EdgeInsets.all(16),
+                        ),
+                        onPressed: () {
+                          game.overlays.add("tutorial");
+                        },
+                        child: const Text(
+                          "Tutorial / Ayuda",
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                            fontFamily: "Crayonara",
+                            fontWeight: FontWeight.normal,
+                            fontSize: 24,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      MusicControls(game: game),
+                      const SizedBox(height: 8),
+                      const Text(
+                        "Objetivos",
+                        style: TextStyle(
+                          decoration: TextDecoration.none,
+                          color: Colors.black,
+                          fontFamily: "Crayonara",
+                          fontWeight: FontWeight.bold,
                           fontSize: 24,
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 8),
-                    MusicControls(game: game),
-                    const SizedBox(height: 8),
-                    const Text(
-                      "Objetivos",
-                      style: TextStyle(
-                        decoration: TextDecoration.none,
-                        color: Colors.black,
-                        fontFamily: "Crayonara",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
+                      const SizedBox(height: 4),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Material(
+                            color: Colors.transparent,
+                            child: Checkbox(
+                              value: game.coins >= 50,
+                              onChanged: null,
+                            ),
+                          ),
+                          const Text(
+                            "Haz 50 monedas",
+                            style: TextStyle(
+                              decoration: TextDecoration.none,
+                              color: Colors.black,
+                              fontFamily: "Crayonara",
+                              fontWeight: FontWeight.normal,
+                              fontSize: 24,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Material(
-                          color: Colors.transparent,
-                          child: Checkbox(
-                            value: game.coins >= 50,
-                            onChanged: null,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Material(
+                            color: Colors.transparent,
+                            child: Checkbox(
+                              value: (game.cookbook?.lockedRecipes.isEmpty ??
+                                  false),
+                              onChanged: null,
+                            ),
                           ),
-                        ),
-                        const Text(
-                          "Haz 50 monedas",
-                          style: TextStyle(
-                            decoration: TextDecoration.none,
-                            color: Colors.black,
-                            fontFamily: "Crayonara",
-                            fontWeight: FontWeight.normal,
-                            fontSize: 24,
+                          const Text(
+                            "Desbloquea todas las recetas",
+                            style: TextStyle(
+                              decoration: TextDecoration.none,
+                              color: Colors.black,
+                              fontFamily: "Crayonara",
+                              fontWeight: FontWeight.normal,
+                              fontSize: 24,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Material(
-                          color: Colors.transparent,
-                          child: Checkbox(
-                            value:
-                                (game.cookbook?.lockedRecipes.isEmpty ?? false),
-                            onChanged: null,
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              game.finishGame();
+                              if (game.levelConfiguration ==
+                                  LevelConfiguration.level4) {
+                                onGameEnd();
+                              } else {
+                                game.nextLevel();
+                              }
+                            },
+                            child: const Text("Siguiente Nivel"),
                           ),
-                        ),
-                        const Text(
-                          "Desbloquea todas las recetas",
-                          style: TextStyle(
-                            decoration: TextDecoration.none,
-                            color: Colors.black,
-                            fontFamily: "Crayonara",
-                            fontWeight: FontWeight.normal,
-                            fontSize: 24,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            game.finishGame();
-                            if (game.levelConfiguration ==
-                                LevelConfiguration.level4) {
+                          TextButton(
+                            onPressed: () {
                               onGameEnd();
-                            } else {
-                              game.nextLevel();
-                            }
-                          },
-                          child: const Text("Siguiente Nivel"),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            onGameEnd();
-                          },
-                          child: const Text("Ir a cuestionario"),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromARGB(255, 246, 104, 52),
-                        padding: const EdgeInsets.all(16),
+                            },
+                            child: const Text("Ir a cuestionario"),
+                          )
+                        ],
                       ),
-                      onPressed: () {
-                        game.restartGame();
-                        Navigator.of(context).pushNamed("/home");
-                      },
-                      child: const Text(
-                        "Menu principal",
-                        style: TextStyle(
-                          decoration: TextDecoration.none,
-                          color: Colors.black,
-                          fontFamily: "Crayonara",
-                          fontWeight: FontWeight.normal,
-                          fontSize: 24,
+                      const SizedBox(height: 16),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 246, 104, 52),
+                          padding: const EdgeInsets.all(16),
+                        ),
+                        onPressed: () {
+                          game.restartGame();
+                          Navigator.of(context).pushNamed("/home");
+                        },
+                        child: const Text(
+                          "Menu principal",
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                            fontFamily: "Crayonara",
+                            fontWeight: FontWeight.normal,
+                            fontSize: 24,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 Align(
                   alignment: Alignment.topRight,

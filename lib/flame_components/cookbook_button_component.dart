@@ -7,6 +7,7 @@ import 'package:flame/flame.dart';
 import 'package:flutter/widgets.dart';
 import 'package:game/classes/advice_activatables.dart';
 import 'package:game/flame_components/puma_game.dart';
+import 'package:game/functions/is_phone_on_flame.dart';
 
 class CookbookButtonComponent extends SpriteComponent
     with TapCallbacks, HasGameRef<PumaGame>, HasVisibility {
@@ -14,7 +15,8 @@ class CookbookButtonComponent extends SpriteComponent
 
   @override
   FutureOr<void> onLoad() {
-    size = Vector2.all(84);
+    anchor = Anchor.topLeft;
+    size = Vector2.all(isPhoneOnFlame(game.camera.viewport.size) ? 64 : 84);
     sprite = Sprite(Flame.images.fromCache("icono_recetas_1.webp"));
     return super.onLoad();
   }

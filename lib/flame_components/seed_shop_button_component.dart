@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:game/classes/advice_activatables.dart';
 import 'package:game/flame_components/buy_more_seeds_component.dart';
 import 'package:game/flame_components/puma_game.dart';
+import 'package:game/functions/is_phone_on_flame.dart';
 
 class SeedShopButtonComponent extends SpriteComponent
     with TapCallbacks, HasGameRef<PumaGame>, HasVisibility {
@@ -15,7 +16,8 @@ class SeedShopButtonComponent extends SpriteComponent
 
   @override
   FutureOr<void> onLoad() {
-    size = Vector2.all(84);
+    anchor = Anchor.topLeft;
+    size = Vector2.all(isPhoneOnFlame(game.camera.viewport.size) ? 64 : 84);
     sprite = Sprite(Flame.images.fromCache("icono_mercado_semillas.png"));
     add(BuyMoreSeedsComponent()..position = Vector2(size.x * .15, size.y * -.2));
     return super.onLoad();
