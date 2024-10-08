@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:game/flame_components/coins_component.dart';
-import 'package:game/flame_components/go_to_questionaire_button.dart';
 import 'package:game/flame_components/monocultive_percentage_component.dart';
 import 'package:game/flame_components/menu_button_component.dart';
 import 'package:game/flame_components/puma_game.dart';
@@ -25,14 +24,6 @@ class TopRightMenuComponent extends PositionComponent
     add(pauseButtonComponent);
 
     currentY += pauseButtonComponent.size.y + verticalPadding;
-
-    final goToQuestionaireButton = GoToQuestionaireButton()
-      ..anchor = Anchor.topRight
-      ..position = Vector2(-rightMargin, currentY);
-
-    add(goToQuestionaireButton);
-
-    currentY += goToQuestionaireButton.size.y + verticalPadding;
 
     final coinsComponent = CoinsComponent()
       ..anchor = Anchor.topRight

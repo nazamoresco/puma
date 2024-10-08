@@ -47,7 +47,7 @@ class ThanksScreen extends StatelessWidget {
                     const Flexible(
                       flex: 8,
                       child: Text(
-                        "Gracias por tu colaboracion :)",
+                        "Gracias por jugar PUMA :)",
                         style: TextStyle(
                           fontFamily: "Crayonara",
                           color: Colors.brown,

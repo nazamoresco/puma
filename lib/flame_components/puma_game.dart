@@ -107,8 +107,6 @@ class PumaGame extends FlameGame {
   /// Whether the game is paused or not.
   get isPaused => _isPaused;
 
-  final void Function() goToQuestionaire;
-
   /// Sets the internal variable '_isPaused' and stops or restarts the time flow.
   set isPaused(boolean) {
     _isPaused = boolean;
@@ -167,8 +165,7 @@ class PumaGame extends FlameGame {
     required this.safeAreaPadding,
     required this.levelConfiguration,
     required this.areAssetsCached,
-    required this.onAssetsCached,
-    required this.goToQuestionaire,
+    required this.onAssetsCached
   }) {
     featureExposure = levelConfiguration.featureExposure;
     camera = CameraComponent(world: world)..viewfinder.anchor = Anchor.center;
