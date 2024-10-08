@@ -27,12 +27,13 @@ class CropComponent extends SpriteGroupComponent<CropState>
 
     priority = 1000;
 
-    sprites = {};
+    final cropSprites = <CropState, Sprite>{};
     for (var cropState in CropState.values) {
-      sprites![cropState] = Sprite(Flame.images.fromCache(
+      cropSprites[cropState] = Sprite(Flame.images.fromCache(
         cropState.imagePath(seed: crop.seed),
       ));
     }
+    sprites = cropSprites;
 
     // The crop images have 700px of height.
     // The tile images have 512px of height.
