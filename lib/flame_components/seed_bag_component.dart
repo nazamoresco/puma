@@ -51,9 +51,8 @@ class SeedBagComponent extends PositionComponent
 
     var seasonX = size.x * .95;
     for (var season in seedBag.seed.seasons) {
-      final seasonComponent = SeasonsComponent()
+      final seasonComponent = SeasonsComponent(season)
         ..size = size * 0.25
-        ..current = season
         ..anchor = Anchor.center
         ..position = Vector2(seasonX, size.y * 0.25);
 

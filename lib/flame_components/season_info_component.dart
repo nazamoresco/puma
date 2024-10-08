@@ -16,11 +16,10 @@ class SeasonInfoComponent extends PositionComponent
 
     final currentPosition = Vector2(0, 0);
 
-    game.seasonsComponent = SeasonsComponent()
+    game.seasonsComponent = SeasonsComponent(game.currentDateTime.season)
       ..size = Vector2.all(84)
       ..position = currentPosition
-      ..anchor = Anchor.centerLeft
-      ..current = game.currentDateTime.season;
+      ..anchor = Anchor.centerLeft;
 
     add(game.seasonsComponent!);
 
