@@ -11,7 +11,7 @@ enum Season {
       case Season.summer:
         return "estaciones_VERANO.webp";
       case Season.fall:
-        return "estaciones_OTOÑO.webp";
+        return "estaciones_OTONIO.webp";
       case Season.spring:
         return "estaciones_PRIMAVERA.webp";
     }

@@ -159,7 +159,7 @@ class StepSwitch extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * .5,
                 child: RawImage(
-                  image: Flame.images.fromCache("tutorial_1.png"),
+                  image: Flame.images.fromCache("tutorial_1.webp"),
                 ),
               ),
             ],
@@ -182,7 +182,7 @@ class StepSwitch extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * .5,
                 child: RawImage(
-                  image: Flame.images.fromCache("tutorial_2.png"),
+                  image: Flame.images.fromCache("tutorial_2.webp"),
                 ),
               ),
             ],
@@ -205,7 +205,7 @@ class StepSwitch extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * .5,
                 child: RawImage(
-                  image: Flame.images.fromCache("tutorial_3.png"),
+                  image: Flame.images.fromCache("tutorial_3.webp"),
                 ),
               ),
             ],

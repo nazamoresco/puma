@@ -18,7 +18,7 @@ class SeedShopButtonComponent extends SpriteComponent
   FutureOr<void> onLoad() {
     anchor = Anchor.topLeft;
     size = Vector2.all(isPhoneOnFlame(game.camera.viewport.size) ? 64 : 84);
-    sprite = Sprite(Flame.images.fromCache("icono_mercado_semillas.png"));
+    sprite = Sprite(Flame.images.fromCache("icono_mercado_semillas.webp"));
     add(BuyMoreSeedsComponent()..position = Vector2(size.x * .15, size.y * -.2));
     return super.onLoad();
   }

@@ -91,7 +91,7 @@ class _SeedShopOverlayState extends State<SeedShopOverlay> {
                             (seed) {
                               return SizedBox(
                                 height: isPhoneVar ? 100 : 200,
-                                width: isPhoneVar ? 100 : 100,
+                                width: isPhoneVar ? 100 : 105,
                                 child: GestureDetector(
                                   onTapDown: (_) {
                                     if (widget.game.coins <= 0) {

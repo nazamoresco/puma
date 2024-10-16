@@ -52,7 +52,7 @@ class GameOverComponent extends SpriteComponent
       ),
     ));
 
-    final gameOverImage = Flame.images.fromCache("1080_game over.webp");
+    final gameOverImage = Flame.images.fromCache("1080_game_over.webp");
     add(SpriteComponent(
       sprite: Sprite(gameOverImage),
       size: scaleKeepingAspectRatio(
