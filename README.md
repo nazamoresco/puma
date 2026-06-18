@@ -1,5 +1,3 @@
-* Linux Download
+# PUMA Game
 
-* Android Download
-
-* Windows Download
+Made with Flame (Flutter).
